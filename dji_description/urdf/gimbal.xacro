@@ -1,0 +1,173 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:include filename="$(find dji_description)/urdf/common.xacro" />
+  
+  <xacro:macro name="gazebo_ros_control_plugin_macro" params="namespace robot_namespace">
+    <plugin name="${namespace}_gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>${robot_namespace}</robotNamespace>
+      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+      <legacyModeNS>true</legacyModeNS>
+    </plugin>
+  </xacro:macro>
+
+  <xacro:macro name="gimbal_macro" params="namespace parent_link offset *origin">
+    <joint name="${namespace}/gimbal_base_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent_link}"/>
+      <child link="${namespace}/gimbal_base_link"/>
+    </joint>
+
+    <link name="${namespace}/gimbal_base_link">
+      <xacro:cylinder_inertial_with_origin
+        radius="0.01"
+        length="0.01"
+        mass="0.001">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+      </xacro:cylinder_inertial_with_origin>
+    </link>
+
+    <xacro:revolute_gimbal_joint_macro
+      namespace="${namespace}"
+      joint_suffix="0"
+      parent_link="${namespace}/gimbal_base_link"
+      child_link="${namespace}/gimbal_link_0">
+      <axis xyz="0.0 0.0 1.0"/>
+      <limit lower="${-pi/2}" upper="${pi/2}" effort="1.2" velocity="6.0"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 -1.57"/>
+    </xacro:revolute_gimbal_joint_macro>
+
+    <link name="${namespace}/gimbal_link_0">
+      <xacro:box_inertial_with_origin
+        x="0.02"
+        y="0.005"
+        z="${offset}"
+        mass="0.06">
+        <origin xyz="0.0 -0.05 -${offset / 2.0}" rpy="0 0 0"/>
+      </xacro:box_inertial_with_origin>
+      <visual>
+        <origin xyz="0.0 -0.02625 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0.015 0.0525 0.005"/>
+        </geometry>
+        <xacro:material_blue/>
+      </visual>
+      <visual>
+        <origin xyz="0.0 -0.05 -${offset / 2.0}" rpy="0 0 0" />
+        <geometry>
+          <box size="0.015 0.005 ${offset}"/>
+        </geometry>
+        <xacro:material_blue/>
+      </visual>
+      <visual>
+        <origin xyz="0.0 -0.05 -${offset}" rpy="${pi / 2.0} 0 0" />
+        <geometry>
+          <cylinder radius="0.01" length="0.01"/>
+        </geometry>
+        <xacro:material_blue/>
+      </visual>
+    </link>
+
+    <xacro:revolute_gimbal_joint_macro
+      namespace="${namespace}"
+      joint_suffix="1"
+      parent_link="${namespace}/gimbal_link_0"
+      child_link="${namespace}/gimbal_link_1">
+      <axis xyz="0.0 -1.0 0.0"/>
+      <limit lower="${-pi/4}" upper="${pi/4}" effort="0.2" velocity="6.0"/>
+      <origin xyz="0.0 -0.05 -${offset}" rpy="${pi} 0.0 0.0"/>
+    </xacro:revolute_gimbal_joint_macro>
+
+    <link name="${namespace}/gimbal_link_1">
+      <xacro:box_inertial_with_origin
+        x="0.02"
+        y="0.04"
+        z="0.005"
+        mass="0.06">
+        <origin xyz="0 -0.02 0.0" rpy="0 0 0" />
+      </xacro:box_inertial_with_origin>
+      <visual>
+        <origin xyz="-0.02 -0.0075 0.0" rpy="0 0 0" />
+        <geometry>
+          <box size="0.06 0.005 0.015"/>
+        </geometry>
+        <xacro:material_green/>
+      </visual>
+      <visual>
+        <origin xyz="-0.05 -0.0275 0.0" rpy="0 0 0" />
+        <geometry>
+          <box size="0.005 0.045 0.015"/>
+        </geometry>
+        <xacro:material_green/>
+      </visual>
+      <visual>
+        <origin xyz="-0.05 -0.05 0" rpy="0 ${pi / 2.0} 0" />
+        <geometry>
+          <cylinder radius="0.01" length="0.01"/>
+        </geometry>
+        <xacro:material_green/>
+      </visual>
+    </link>
+
+    <xacro:revolute_gimbal_joint_macro
+      namespace="${namespace}"
+      joint_suffix="2"
+      parent_link="${namespace}/gimbal_link_1"
+      child_link="${namespace}/gimbal_link_2">
+      <axis xyz="-1.0 0.0 0.0"/>
+      <limit lower="${-pi/4}" upper="${pi/4}" effort="1.2" velocity="6.0"/>
+      <origin xyz="-0.05 -0.05 0.0" rpy="0.0 0.0 0.0"/>
+    </xacro:revolute_gimbal_joint_macro>
+
+    <link name="${namespace}/gimbal_link_2">
+      <xacro:box_inertial_with_origin
+        x="0.03"
+        y="0.02"
+        z="0.005"
+        mass="0.06">
+        <origin xyz="0.025 0 0" rpy="0 0 0" />
+      </xacro:box_inertial_with_origin>
+      <visual>
+        <origin xyz="0.0275 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0.045 0.015 0.005"/>
+        </geometry>
+        <xacro:material_red/>
+      </visual>
+    </link>
+
+    <gazebo reference="${namespace}/gimbal_link_0">
+      <material>Gazebo/Blue</material>
+    </gazebo>
+
+    <gazebo reference="${namespace}/gimbal_link_1">
+      <material>Gazebo/Green</material>
+    </gazebo>
+
+    <gazebo reference="${namespace}/gimbal_link_2">
+      <material>Gazebo/Red</material>
+    </gazebo>
+  </xacro:macro>
+
+  <xacro:macro name="revolute_gimbal_joint_macro"
+    params="namespace joint_suffix parent_link child_link *axis *limit *origin">
+    <joint name="${namespace}/gimbal_joint_${joint_suffix}" type="revolute">
+      <parent link="${parent_link}"/>
+      <child link="${child_link}"/>
+      <xacro:insert_block name="axis" />
+      <xacro:insert_block name="limit" />
+      <xacro:insert_block name="origin" />
+    </joint>
+    <transmission name="${namespace}/gimbal_joint_trans_${joint_suffix}">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${namespace}/gimbal_joint_${joint_suffix}">
+        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="${namespace}/gimbal_joint_motor_${joint_suffix}">
+        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+  </xacro:macro>
+
+</robot>

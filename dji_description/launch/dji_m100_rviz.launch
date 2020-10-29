@@ -1,0 +1,24 @@
+<launch>
+
+  <arg name="mav_name" default="dji_m100"/>
+  <arg name="suffix" default="gimbal_camera"/>
+  <arg name="namespace" default="$(arg mav_name)"/>
+  <arg name="gui" default="true" />
+
+  <arg name="model" default="$(find dji_description)/urdf/dji_m100_$(arg suffix).xacro"/>
+
+  <!-- send the robot XML to param server -->
+  <param name="robot_description" command="
+    $(find xacro)/xacro.py '$(arg model)'
+    mav_name:=$(arg mav_name)
+    namespace:=$(arg namespace)
+    is_kinematic:=true
+    "/>
+  <param name="use_gui" value="$(arg gui)"/>
+
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find dji_description)/rviz/dji_m100.rviz"/>
+
+</launch>
