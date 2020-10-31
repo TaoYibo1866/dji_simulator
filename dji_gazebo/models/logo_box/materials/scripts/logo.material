@@ -1,0 +1,271 @@
+material tian_gong_zhu_ta/logo1
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture logo.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material tian_gong_zhu_ta/logo2
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture logo2.jpg
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material tian_gong_zhu_ta/logo3
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture logo3.jpg
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material tian_gong_zhu_ta/logo4
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture logo4.jpg
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material tian_gong_zhu_ta/logo5
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture logo5.jpg
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material tian_gong_zhu_ta/logo6
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture logo6.jpg
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material tian_gong_zhu_ta/logo7
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture logo7.jpg
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material tian_gong_zhu_ta/logo8
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture logo8.jpg
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material tian_gong_zhu_ta/logo9
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture logo13.jpg
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material tian_gong_zhu_ta/logo10
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture logo10.jpg
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material tian_gong_zhu_ta/logo11
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture logo11.jpg
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material tian_gong_zhu_ta/logo12
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture logo12.jpg
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material tian_gong_zhu_ta/logo13
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture logo13.jpg
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material tian_gong_zhu_ta/logo14
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture logo14.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material tian_gong_zhu_ta/logo15
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture logo15.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material tian_gong_zhu_ta/logo16
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture logo16.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}

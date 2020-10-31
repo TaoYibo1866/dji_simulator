@@ -1,0 +1,16 @@
+material concrete_ground
+{
+  receive_shadows on
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture concrete_ground.jpg
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
