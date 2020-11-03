@@ -106,11 +106,11 @@
           </xacro:unless>
         </geometry>
       </visual>
-      <collision>
+      <!-- <collision>
         <geometry>
-          <cylinder length="0.005" radius="${radius_rotor}" /> <!-- [m] -->
+          <cylinder length="0.005" radius="${radius_rotor}" />
         </geometry>
-      </collision>
+      </collision> -->
     </link>
     <gazebo reference="${robot_namespace}/rotor_${motor_number}">
       <material>Gazebo/${color}</material>

@@ -1,17 +1,14 @@
 <launch>
-  <!-- only firefly and ardrone is tuned -->
   <arg name="mav_name" default="dji_m100"/>
   <arg name="suffix" default="gimbal_camera"/>
-  <arg name="world_name" default="logo_box"/>
-  <arg name="x" default="0"/>
-  <arg name="y" default="0"/>
-  <arg name="z" default="0"/>
-  <arg name="R" default="0"/>
-  <arg name="P" default="0"/>
-  <arg name="Y" default="0"/>
+  <arg name="world_name" default="tian_gong_zhu_ta"/>
   <arg name="paused" default="false"/>
   <arg name="gui" default="true"/>
   <arg name="use_sim_time" default="false"/>
+  <arg name="x_offset" default="0"/>
+  <arg name="y_offset" default="0"/>
+  <arg name="z_offset" default="0"/>
+  <arg name="yaw_offset" default="3.14"/>
   
   <include file="$(find dji_gazebo)/launch/world.launch">
     <arg name="world_name" value="$(arg world_name)" />
@@ -25,12 +22,6 @@
       <arg name="mav_name" value="$(arg mav_name)" />
       <arg name="model" value="$(find dji_description)/urdf/$(arg mav_name)_$(arg suffix).xacro" />
       <arg name="is_kinematic" value="true"/>
-      <arg name="x" value="$(arg x)"/>
-      <arg name="y" value="$(arg y)"/>
-      <arg name="z" value="$(arg z)"/>
-      <arg name="R" value="$(arg R)"/>
-      <arg name="P" value="$(arg P)"/>
-      <arg name="Y" value="$(arg Y)"/>
     </include>
   </group>
   
@@ -39,11 +30,10 @@
   </node>
 
   <node name="dji_osdk_bridge" pkg="dji_simulator" type="dji_osdk_bridge_node">
+    <param name="x_offset" value="$(arg x_offset)"/>
+    <param name="y_offset" value="$(arg y_offset)"/>
+    <param name="z_offset" value="$(arg z_offset)"/>
+    <param name="yaw_offset" value="$(arg yaw_offset)"/>
   </node>
 
-  <!-- <node name="record" pkg="image_view" type="video_recorder" respawn="false" required="true" output="screen" cwd="ROS_HOME">
-      <remap from="image" to="/camera/image_raw"/>
-      <param name="codec" type="string" value="DIVX"/>
-      <param name="filename" type="string" value="record.avi"/>
-  </node> -->
 </launch>

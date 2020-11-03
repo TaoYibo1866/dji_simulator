@@ -1,0 +1,18 @@
+<launch>
+  
+  <include file="$(find dji_simulator)/launch/dji_simulator.launch">
+    <arg name="mav_name" value="dji_m100"/>
+    <arg name="suffix" value="gimbal_camera"/>
+    <arg name="world_name" value="tian_gong_zhu_ta"/>
+    <arg name="paused" value="false"/>
+    <arg name="gui" value="true"/>
+    <arg name="use_sim_time" value="false"/>
+    <arg name="x_offset" value="0"/>
+    <arg name="y_offset" value="0"/>
+    <arg name="z_offset" value="0"/>
+    <arg name="yaw_offset" value="3.1415926"/>
+  </include>
+
+  <node name="player" pkg="rosbag" type="play" args="--clock -r 1.0 $(find dji_simulator)/test/2020-10-22-17-05-04.bag" />
+  
+</launch>
