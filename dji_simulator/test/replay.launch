@@ -2,7 +2,7 @@
   
   <include file="$(find dji_simulator)/launch/dji_simulator.launch">
     <arg name="mav_name" value="dji_m100"/>
-    <arg name="suffix" value="gimbal_camera"/>
+    <arg name="suffix" value="default"/>
     <arg name="world_name" value="tian_gong_zhu_ta"/>
     <arg name="paused" value="false"/>
     <arg name="gui" value="true"/>

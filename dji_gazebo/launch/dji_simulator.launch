@@ -1,6 +1,6 @@
 <launch>
   <arg name="mav_name" default="dji_m100"/>
-  <arg name="suffix" default="gimbal_camera"/>
+  <arg name="suffix" default="default"/>
   <arg name="world_name" default="tian_gong_zhu_ta"/>
   <arg name="x" default="0"/>
   <arg name="y" default="0"/>
