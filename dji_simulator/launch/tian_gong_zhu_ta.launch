@@ -12,8 +12,6 @@
     <arg name="z_offset" value="0"/>
     <arg name="yaw_offset" value="3.1415926"/>
   </include>
-
-  <node name="player" pkg="rosbag" type="play" args="--clock -r 1.0 $(find dji_simulator)/test/2020-10-22-17-05-04.bag" />
   
   <node name="image_timestamp" pkg="dji_simulator" type="image_timestamp_node">
     <remap from="in" to="/camera/image_raw" />

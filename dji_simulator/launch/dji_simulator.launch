@@ -1,7 +1,7 @@
 <launch>
   <arg name="mav_name" default="dji_m100"/>
   <arg name="suffix" default="default"/>
-  <arg name="world_name" default="tian_gong_zhu_ta"/>
+  <arg name="world_name" default="basic"/>
   <arg name="paused" default="false"/>
   <arg name="gui" default="true"/>
   <arg name="use_sim_time" default="false"/>
@@ -30,15 +30,6 @@
     <param name="y_offset" value="$(arg y_offset)"/>
     <param name="z_offset" value="$(arg z_offset)"/>
     <param name="yaw_offset" value="$(arg yaw_offset)"/>
-  </node>
-
-  <node name="image_timestamp" pkg="dji_simulator" type="image_timestamp_node">
-    <remap from="in" to="/camera/image_raw" />
-    <remap from="out" to="/camera0/image_raw" />
-  </node>
-
-  <node name="image_view" pkg="image_view" type="image_view" args="image:=/camera0/image_raw">
-    <param name="autosize" type="bool" value="false"/>
   </node>
 
 </launch>
