@@ -15,6 +15,8 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   message_filters
   tf2
+  sensor_msgs
+  gazebo_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -138,6 +140,7 @@ include_directories(
 ## The recommended prefix ensures that target names across packages don't collide
 add_executable(dji_osdk_bridge_node src/dji_osdk_bridge_node.cpp)
 add_executable(image_timestamp_node src/image_timestamp_node.cpp)
+add_executable(gimbal_driver_node src/gimbal_driver_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -149,12 +152,16 @@ add_executable(image_timestamp_node src/image_timestamp_node.cpp)
 ## same as for the library above
 add_dependencies(dji_osdk_bridge_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 add_dependencies(image_timestamp_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(gimbal_driver_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(dji_osdk_bridge_node
   ${catkin_LIBRARIES}
 )
 target_link_libraries(image_timestamp_node
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(gimbal_driver_node
   ${catkin_LIBRARIES}
 )
 

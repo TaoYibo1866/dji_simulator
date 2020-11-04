@@ -1,13 +1,13 @@
 <launch>
   <arg name="mav_name" default="dji_m100"/>
-  <arg name="suffix" default="fpv"/>
-  <arg name="world_name" default="jing_zhun_chuan_yue"/>
+  <arg name="suffix" default="downward_camera"/>
+  <arg name="world_name" default="tian_gong_zhu_ta"/>
   <arg name="x" default="0"/>
-  <arg name="y" default="-15"/>
+  <arg name="y" default="0"/>
   <arg name="z" default="2"/>
   <arg name="R" default="0"/>
   <arg name="P" default="0"/>
-  <arg name="Y" default="1.57"/>
+  <arg name="Y" default="0"/>
   <arg name="paused" default="false"/>
   <arg name="gui" default="true"/>
   <arg name="use_sim_time" default="false"/>
@@ -32,8 +32,6 @@
       <arg name="Y" value="$(arg Y)"/>
     </include>
   </group>
-  
-  <node name="moving_gate" pkg="dji_gazebo" type="moving_gate_node"/>
 
   <node name="image_view" pkg="image_view" type="image_view" args="image:=/camera/image_raw">
     <param name="autosize" type="bool" value="false"/>
