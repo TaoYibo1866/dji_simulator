@@ -6,6 +6,7 @@
 using gazebo_msgs::SetModelConfiguration;
 using gazebo_msgs::GetJointProperties;
 using sensor_msgs::Joy;
+using sensor_msgs::JoyConstPtr;
 
 ros::Publisher joint_pub;
 ros::ServiceClient set_joint_client;
@@ -14,12 +15,13 @@ ros::ServiceClient get_joint_client;
 SetModelConfiguration set_srv;
 GetJointProperties get_srv0, get_srv1, get_srv2;
 
-void cmdCallback(const Joy cmd)
+void cmdCallback(const JoyConstPtr& cmd)
 {
-    ROS_ASSERT(cmd.axes.size() == 3);
-    set_srv.request.joint_positions.push_back(cmd.axes[0]);
-    set_srv.request.joint_positions.push_back(cmd.axes[1]);
-    set_srv.request.joint_positions.push_back(cmd.axes[2]);
+    ROS_ASSERT(cmd->axes.size() == 3);
+    set_srv.request.joint_positions.clear();
+    set_srv.request.joint_positions.push_back(cmd->axes[0]);
+    set_srv.request.joint_positions.push_back(cmd->axes[1]);
+    set_srv.request.joint_positions.push_back(cmd->axes[2]);
     set_joint_client.call(set_srv);
 }
 
@@ -35,8 +37,8 @@ void timerCallback(const ros::TimerEvent& event)
     && get_srv2.response.success)
     {
         joint_state.axes.push_back(get_srv0.response.position[0]);
-        joint_state.axes.push_back(get_srv1.response.position[1]);
-        joint_state.axes.push_back(get_srv2.response.position[2]);
+        joint_state.axes.push_back(get_srv1.response.position[0]);
+        joint_state.axes.push_back(get_srv2.response.position[0]);
         joint_pub.publish(joint_state);
     }
 }
@@ -47,6 +49,8 @@ int main(int argc, char** argv)
     ros::NodeHandle nh;
     set_joint_client = nh.serviceClient<SetModelConfiguration>("gazebo/set_model_configuration");
     get_joint_client = nh.serviceClient<GetJointProperties>("gazebo/get_joint_properties");
+    set_joint_client.waitForExistence();
+    get_joint_client.waitForExistence();
     ros::param::param<std::string>("~model_name", set_srv.request.model_name, "dji_m100");
     ros::param::param<std::string>("~urdf_param_name", set_srv.request.urdf_param_name, "robot_description");
     std::vector<std::string> joint_names(3);
@@ -59,7 +63,9 @@ int main(int argc, char** argv)
     get_srv2.request.joint_name = joint_names[2];
     ros::Subscriber cmd_sub = nh.subscribe<Joy>("gimbal_angle_cmd", 1, cmdCallback);
     joint_pub = nh.advertise<Joy>("gimbal_angle", 1);
-    ros::Timer timer = nh.createTimer(ros::Duration(1/50), timerCallback);
+    ros::Timer timer = nh.createTimer(ros::Duration(1/50), timerCallback, false, false);
+    ros::Duration(5).sleep(); // wait for model, otherwise gazebo gui stuck on startup
+    timer.start();
     ros::spin();
     return 0;
 }
